@@ -1,0 +1,45 @@
+/* HEADER */
+
+header {
+
+    background-color: white;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .15);
+    padding: .5em 0;
+
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+/* LOGO */
+
+img.header-navbar_logo {
+    max-height: 4em;
+}
+
+
+
+/* HEADER NAV */
+
+.header-nav>ul {
+    display: flex;
+}
+
+.header-nav>ul li a {
+    color: var(--clr-blue-500);
+    font-weight: 300;
+    text-decoration: none;
+    margin-left: 1rem;
+    padding: .3rem .66rem;
+}
+
+.header-nav>ul li a:hover,
+.header-nav>ul li a:focus {
+    border-bottom: .1rem solid var(--clr-blue-500);
+}
