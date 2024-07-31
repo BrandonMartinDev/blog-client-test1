@@ -1,0 +1,63 @@
+.error-page {
+    padding-top: 5em;
+    text-align: center;
+}
+
+.error-page-img {
+    color: rgb(161, 161, 161);
+    height: 18em;
+    width: 18em;
+}
+
+
+
+/* MAIN TEXT */
+
+.error-page>.main-text {
+    margin-bottom: 2rem;
+}
+
+.error-page h1 {
+    font-size: 5rem;
+    color: rgb(161, 161, 161);
+}
+
+.error-page h2 {
+    font-size: 2rem;
+}
+
+
+
+/* SUBTEXT */
+
+.error-page .subtext {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+
+/* ERROR NAV */
+
+.error-nav {
+    max-width: 33em;
+    margin: 0 auto;
+}
+
+.error-nav>ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 4rem;
+}
+
+.error-nav>ul li a {
+    color: rgb(161, 161, 161);
+    font-weight: 300;
+    text-decoration: none;
+}
+
+.error-nav>ul li a:hover,
+.error-nav>ul li a:focus {
+    text-decoration: underline;
+}
