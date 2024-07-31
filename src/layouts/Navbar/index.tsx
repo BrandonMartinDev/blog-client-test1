@@ -25,7 +25,7 @@ const Navbar = () => {
               </li>
 
               <li>
-                <Link to="/popular">Popular</Link>
+                <Link to="/featured">Featured</Link>
               </li>
 
               <li>

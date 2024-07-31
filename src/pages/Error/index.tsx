@@ -28,7 +28,7 @@ const ErrorPage = () => {
                     </li>
 
                     <li>
-                        <Link to="/popular">Popular</Link>
+                        <Link to="/featured">Featured</Link>
                     </li>
 
                     <li>
