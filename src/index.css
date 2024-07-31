@@ -1,0 +1,60 @@
+/* -- == [[ IMPORTS ]] == -- */
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+
+
+
+/* -- == [[ VARIABLES ]] == -- */
+
+:root {
+
+    /* COLORS */
+
+    --clr-blue-500: #2a5add;
+
+    /* FONTS */
+
+    --ff-lexand: "Lexend Deca", sans-serif;
+
+}
+
+
+
+/* -- == [[ CSS RESET ]] == --  */
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: none;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+
+    height: 100%;
+    font-family: var(--ff-lexand);
+
+}
+
+img {
+    max-width: 100%;
+}
+
+button {
+    background: none;
+    cursor: pointer;
+}
+
+.container {
+
+    max-width: 75em;
+    width: 60%;
+    margin: 0 auto;
+
+}
