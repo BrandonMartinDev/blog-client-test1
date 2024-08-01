@@ -1,7 +1,6 @@
 // -- == [[ IMPORTS ]] == -- \\
 
 import { Link } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
 
 import './mainArticlePreview.css';
 
@@ -19,6 +18,7 @@ const MainArticlePreviewLoading = () => {
             <div className="info">
                 <div className="main-info">
                     <h2 className='title'>Loading blog info...</h2>
+                    <p className="body-preview">Please be patient... :)</p>
                 </div>
             </div>
         </div>
@@ -68,7 +68,10 @@ const MainArticlePreview = ({
 
                 <div className="main-info">
 
-                    <h2 className='title'>{title}</h2>
+                    <h2 className='title'>
+                        <Link to={`/blog/${_id}`}>{title}</Link>
+                    </h2>
+
                     <p className="body-preview">{body.substring(0, 233).replace(/#?/g, "")}...</p>
 
                 </div>
@@ -79,7 +82,6 @@ const MainArticlePreview = ({
                     <p className="date-created">{new Date(createdAt).toDateString()}</p>
 
                     {likedBy.length >= 0 && <Likes amountOfLikes={likedBy.length} />}
-                    <p className="blog-id">{_id}</p>
 
                 </div>
 
