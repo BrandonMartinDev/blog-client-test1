@@ -1,0 +1,14 @@
+.likes {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.likes>.heart {
+    transition: .15s all;
+    margin-right: 5px;
+}
+
+.likes:hover>.heart {
+    color: rgb(196, 39, 39);
+}
