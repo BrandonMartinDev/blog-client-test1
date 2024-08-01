@@ -1,0 +1,10 @@
+main.home-main {
+    padding: 3rem 0;
+}
+
+.home-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 3rem;
+    margin-bottom: 3rem;
+}
