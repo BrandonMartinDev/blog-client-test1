@@ -69,7 +69,7 @@ const MainArticlePreview = ({
                 <div className="main-info">
 
                     <h2 className='title'>
-                        <Link to={`/blog/${_id}`}>{title}</Link>
+                        <Link to={`/view/blog/${_id}`}>{title}</Link>
                     </h2>
 
                     <p className="body-preview">{body.substring(0, 233).replace(/#?/g, "")}...</p>
