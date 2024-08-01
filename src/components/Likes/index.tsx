@@ -16,7 +16,7 @@ const Likes = ({ amountOfLikes }: LikesProps) => {
     return (
         <div className="likes">
             <FaHeart className="heart" />
-            <p>{amountOfLikes} likes</p>
+            <p>{amountOfLikes} {amountOfLikes === 1 ? "like" : "likes"}</p>
         </div>
     )
 }
