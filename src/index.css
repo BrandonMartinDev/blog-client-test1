@@ -37,6 +37,7 @@ html {
 
 body {
 
+    background-color: rgb(243, 243, 243);
     height: 100%;
     font-family: var(--ff-lexand);
 
@@ -53,8 +54,8 @@ button {
 
 .container {
 
-    max-width: 75em;
-    width: 60%;
+    max-width: 60em;
+    width: 90%;
     margin: 0 auto;
 
 }
