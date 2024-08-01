@@ -1,9 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 
 import {
-  ErrorPage,
 
-  HomePage
+  ErrorPage,
+  HomePage,
+
+  ViewBlogPage
+
 } from './pages/exportPages';
 
 
@@ -15,10 +18,17 @@ function App() {
     <Routes>
 
       <Route path='/' element={<NavbarLayout />}>
-      
-        <Route index element={<HomePage />} />        
-        <Route path="*" element={<ErrorPage />} />
-        
+
+        <Route index element={<HomePage />} />
+
+        <Route path='/view'>
+
+          <Route path='/blog' element={<ViewBlogPage />} />
+
+        </Route>
+
+        <Route path='*' element={<ErrorPage />} />
+
       </Route>
 
     </Routes>
