@@ -57,7 +57,7 @@ const HomePage = () => {
     const mainFeaturedBlog = featuredBlogs[0];
 
     return (
-        <div className="container">
+        <div className="home container">
 
             <main className="home-main">
                 <MainArticlePreview key={mainFeaturedBlog._id} articleInfo={mainFeaturedBlog} />
