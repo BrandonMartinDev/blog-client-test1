@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import './mainArticlePreview.css';
 
 import { type Article } from "@custom-types/blog-types";
-import { Likes } from "@global-components/exportGlobalComponents";
+import { Likes, UsernameLink } from "@global-components/exportGlobalComponents";
 
 
 
@@ -78,7 +78,7 @@ const MainArticlePreview = ({
 
                 <div className="sub-info">
 
-                    <Link className="author-name" to={`/user/${author._id}`}>{author.displayName}</Link>
+                    <UsernameLink displayName={author.displayName} userId={author._id} />
                     <p className="date-created">{new Date(createdAt).toDateString()}</p>
 
                     {likedBy.length >= 0 && <Likes amountOfLikes={likedBy.length} />}

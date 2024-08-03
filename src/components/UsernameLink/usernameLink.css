@@ -1,0 +1,9 @@
+.username-link {
+    font-weight: 500;
+    color: black;
+}
+
+.username-link:hover {
+    color: var(--clr-blue-500);
+    text-decoration: underline;
+}

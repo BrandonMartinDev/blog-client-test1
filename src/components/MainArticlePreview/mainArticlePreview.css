@@ -77,17 +77,6 @@
 }
 
 
-.main-article-preview>.info>.sub-info>.author-name {
-    font-weight: 500;
-    color: black;
-}
-
-.main-article-preview>.info>.sub-info>.author-name:hover {
-    color: var(--clr-blue-500);
-    text-decoration: underline;
-}
-
-
 .main-article-preview>.info>.sub-info>.date-created {
     margin-right: auto;
 }

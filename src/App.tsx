@@ -23,7 +23,7 @@ function App() {
 
         <Route path='/view'>
 
-          <Route path='/blog' element={<ViewBlogPage />} />
+          <Route path='/view/blog/:blog_id' element={<ViewBlogPage />} />
 
         </Route>
 
