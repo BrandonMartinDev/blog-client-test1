@@ -1,13 +1,19 @@
+// -- == [[ IMPORTS ]] == -- \\
+
 import { Routes, Route } from 'react-router-dom';
 
 import {
 
   ErrorPage,
+
   HomePage,
+  LoginPage,
 
   ViewBlogPage
 
 } from './pages/exportPages';
+
+import { LoggedInUserContextProvider } from '@contexts/useLoggedInUser';
 
 
 import { NavbarLayout } from './layouts/exportLayouts';
@@ -15,23 +21,33 @@ import { NavbarLayout } from './layouts/exportLayouts';
 function App() {
 
   return (
-    <Routes>
+    <LoggedInUserContextProvider>
 
-      <Route path='/' element={<NavbarLayout />}>
+      <Routes>
 
-        <Route index element={<HomePage />} />
+        <Route path='/login'>
 
-        <Route path='/view'>
-
-          <Route path='/view/blog/:blog_id' element={<ViewBlogPage />} />
+          <Route index element={<LoginPage />} />
 
         </Route>
 
-        <Route path='*' element={<ErrorPage />} />
+        <Route path='/' element={<NavbarLayout />}>
 
-      </Route>
+          <Route index element={<HomePage />} />
 
-    </Routes>
+          <Route path='/view'>
+
+            <Route path='/view/blog/:blog_id' element={<ViewBlogPage />} />
+
+          </Route>
+
+          <Route path='*' element={<ErrorPage />} />
+
+        </Route>
+
+      </Routes>
+      
+    </LoggedInUserContextProvider>
   )
 }
 
