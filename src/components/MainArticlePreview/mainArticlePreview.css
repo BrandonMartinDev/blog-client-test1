@@ -3,7 +3,7 @@
 .main-article-preview {
     width: 100%;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 9px;
     box-shadow: 3px 3px 9px rgba(0, 0, 0, .15);
 
     transition: .2s scale;
