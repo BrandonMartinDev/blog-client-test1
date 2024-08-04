@@ -3,8 +3,12 @@ import { Link, Outlet } from "react-router-dom"
 import './navbar.css';
 
 import Logo from "/Logo.png"
+import { useLoggedInUser } from "@contexts/useLoggedInUser";
 
 const Navbar = () => {
+
+  const user = useLoggedInUser();
+
   return (
     <>
 
@@ -39,6 +43,14 @@ const Navbar = () => {
             </ul>
 
           </nav>
+
+          <div className="logged-in-user">
+            {
+              user
+                ? <Link className="username-link" to={`/user/${user._id}`}>{user.displayName}</Link>
+                : <Link className="login-link" to='/login'>Login/Signup</Link>
+            }
+          </div>
 
         </div>
 
