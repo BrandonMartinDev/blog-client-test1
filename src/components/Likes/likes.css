@@ -9,6 +9,7 @@
     margin-right: 5px;
 }
 
+.likes:hover,
 .likes:hover>.heart {
     color: rgb(196, 39, 39);
 }
