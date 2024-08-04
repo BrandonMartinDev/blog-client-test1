@@ -9,6 +9,7 @@ import useGetBlogInfo from "@hooks/useGetBlogInfo";
 
 import UsernameLink from "@global-components/UsernameLink";
 import Likes from "@global-components/Likes";
+import EditButton from "@global-components/EditButton";
 
 
 
@@ -70,6 +71,7 @@ const ViewBlogPage = () => {
 
                 <div className="header">
                     <UsernameLink displayName={author.displayName} userId={author._id} />
+                    <EditButton id={_id} />
                     <Likes amountOfLikes={likedBy.length} />
                     <p className="date">{new Date(createdAt).toDateString()}</p>
                 </div>

@@ -26,6 +26,10 @@
     margin-right: auto;
 }
 
+.view-blog_main>.header>.edit {
+    margin-right: 1rem;
+}
+
 .view-blog_main>.header>.likes {
     margin-right: 1rem;
 }
