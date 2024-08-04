@@ -1,0 +1,19 @@
+.edit {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.edit>.pencil {
+    transition: .15s all;
+    margin-right: 5px;
+}
+
+.edit>a {
+    color: gray;
+}
+
+.edit:hover>a,
+.edit:hover>.pencil {
+    color: var(--clr-blue-500);
+}
