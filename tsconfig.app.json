@@ -40,9 +40,15 @@
       "@hooks/*": [
         "./src/hooks/*"
       ],
+      "@contexts/*": [
+        "./src/contexts/*"
+      ],
       "@custom-types/*": [
         "./src/types/*"
-      ]
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
     }
   },
   "include": [
