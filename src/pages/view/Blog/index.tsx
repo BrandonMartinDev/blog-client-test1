@@ -71,7 +71,7 @@ const ViewBlogPage = () => {
 
                 <div className="header">
                     <UsernameLink displayName={author.displayName} userId={author._id} />
-                    <EditButton id={_id} />
+                    <EditButton blog_id={_id} author_id={author._id} />
                     <Likes amountOfLikes={likedBy.length} />
                     <p className="date">{new Date(createdAt).toDateString()}</p>
                 </div>
