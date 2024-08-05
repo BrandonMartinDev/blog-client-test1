@@ -29,15 +29,15 @@ export const useLoggedInUserContext = () => {
 }
 
 export const useLoggedInUser = () => {
-    const contextReturn = useContext(LoggedInUserContext);
-    if (!contextReturn) return;
-    return contextReturn.user;
+    const contextValue = useContext(LoggedInUserContext);
+    if (!contextValue) return;
+    return contextValue.user;
 }
 
 export const useSetLoggedInUser = () => {
-    const contextReturn = useContext(LoggedInUserContext);
-    if (!contextReturn) return;
-    return contextReturn.setUser;
+    const contextValue = useContext(LoggedInUserContext);
+    if (!contextValue) return;
+    return contextValue.setUser;
 }
 
 
