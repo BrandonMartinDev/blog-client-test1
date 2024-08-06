@@ -13,8 +13,10 @@ type LikesProps = {
 
 const Likes = ({ amountOfLikes }: LikesProps) => {
 
+    const handleClick = () => { };
+
     return (
-        <div className="likes">
+        <div className="likes" onClick={handleClick}>
             <FaHeart className="heart" />
             <p>{amountOfLikes} {amountOfLikes === 1 ? "like" : "likes"}</p>
         </div>

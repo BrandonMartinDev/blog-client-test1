@@ -1,6 +1,6 @@
 // -- == [[ IMPORTS ]] == -- \\
 
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaPencilAlt } from "react-icons/fa";
 
 import './editButton.css';
@@ -16,14 +16,20 @@ type EditButtonProps = {
 
 const EditButton = ({ blog_id, author_id }: EditButtonProps) => {
 
+    const navigate = useNavigate();
+
     const user = useLoggedInUser();
     if (!user) return;
     if (user._id !== author_id) return;
 
+    const handleClick = () => {
+        navigate(`/edit/blog/${blog_id}`);
+    }
+
     return (
-        <div className="edit">
+        <div className="edit" onClick={handleClick}>
             <FaPencilAlt className="pencil" />
-            <Link to={`/edit/blog/${blog_id}`}>Edit</Link>
+            <p>Edit</p>
         </div>
     )
 }
