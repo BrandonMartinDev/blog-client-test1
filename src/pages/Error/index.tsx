@@ -17,7 +17,7 @@ const ErrorPage = () => {
                 <h2>Oopsies!</h2>
             </div>
 
-            <p className="subtext">Unfortunately, the page <span>'{pathname}'</span> could not be found!</p>
+            <p className="subtext">Unfortunately, the page <strong>'{pathname}'</strong> could not be found!</p>
 
             <nav className="error-nav">
 
