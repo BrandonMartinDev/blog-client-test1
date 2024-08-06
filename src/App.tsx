@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import {
 
   ErrorPage,
+  UnauthorizedPage,
   
   HomePage,
   LoginPage,
@@ -49,6 +50,7 @@ function App() {
 
           </Route>
 
+          <Route path='/unauthorized' element={<UnauthorizedPage />} />
           <Route path='*' element={<ErrorPage />} />
 
         </Route>
