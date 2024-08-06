@@ -10,8 +10,8 @@ import GetUserInfo from "@utils/GetUserInfo";
 // -- == [[ CONTEXT TYPES ]] == -- \\
 
 type LoggedInUserContextValue = {
-    user: User | undefined,
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+    user: User | false | undefined,
+    setUser: React.Dispatch<React.SetStateAction<User | false | undefined>>
 }
 
 
@@ -48,26 +48,33 @@ export function LoggedInUserContextProvider({ children }: PropsWithChildren) {
 
     // Sets user state
 
-    const [user, setUser] = useState<User>();
+    const [user, setUser] = useState<User | false | undefined>(undefined);
 
     useEffect(() => {
 
         (async () => {
+
+            if (!setUser) throw new Error("There was an error getting setUser");
 
             try {
 
                 // Gets the current logged in user
 
                 const userInfo = await GetUserInfo("current");
-                if (!userInfo) throw new Error("There was an error logging in");
+
+                if (!userInfo) {
+                    setUser(false);
+                    throw new Error("There was an error getting the current user");
+                }
 
 
                 // If userInfo exists, sets logged in user
 
-                if (!setUser) throw new Error("There was an error getting setUser");
                 setUser(userInfo);
 
             } catch (error) {
+                
+                setUser(false);
 
                 if (error instanceof Error) {
                     console.warn(error.message);
