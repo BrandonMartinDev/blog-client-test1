@@ -15,10 +15,18 @@ import EditButton from "@global-components/EditButton";
 
 // -- == [[ COMPONENTS ]] == -- \\
 
-const ViewBlogPageError = () => {
+type BlogPageErrorProps = {
+    blog_id?: string;
+}
+
+const ViewBlogPageError = ({ blog_id }: BlogPageErrorProps) => {
     return (
         <div className="container">
-            <h1>There was an error loading blog</h1>
+            {
+                blog_id
+                    ? <h1 className="error">There was an error loading blog {blog_id}</h1>
+                    : <h1 className="error">There was an error loading blog</h1>
+            }
         </div>
     )
 }
@@ -44,8 +52,8 @@ const ViewBlogPage = () => {
     const { blogInfo, err } = useGetBlogInfo(blog_id);
 
     if (err) {
-        console.warn(err);
-        return <ViewBlogPageError />;
+        console.warn(`ERROR LOADING BLOG: `, err);
+        return <ViewBlogPageError blog_id={blog_id} />;
     }
 
     if (!blogInfo) return <ViewBlogPageLoading />;
