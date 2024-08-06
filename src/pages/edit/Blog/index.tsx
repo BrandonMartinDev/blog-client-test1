@@ -122,74 +122,79 @@ const ViewBlogPage = () => {
 
     const { blogInfo, err } = useGetBlogInfo(blog_id);
 
-    if (err) {
-        console.warn(err);
-        return <EditBlogPageError />;
-    }
-
 
     // Gets current logged in user
 
     const user = useLoggedInUser();
 
 
-    // Sets EditReducer state to blog info
+    // Initializes useEffect that depends on user and blogInfo
 
     useEffect(() => {
+
+        // Checks if user and blogInfo exist
+
+        if (user === undefined || blogInfo === undefined) return;
+
+
+        // Sets EditReducer state to blog info
 
         editDispatch({
             type: "ALL",
             payload: "",
             newState: {
 
-                title: blogInfo?.title || "",
+                title: blogInfo.title || "",
                 editingTitle: false,
 
-                coverImage: blogInfo?.coverImage || "",
+                coverImage: blogInfo.coverImage || "",
                 editingCoverImage: false,
 
-                body: blogInfo?.body || "",
+                body: blogInfo.body || "",
                 editingBody: false
 
             }
         });
 
-    }, [blogInfo]);
+
+        // Checks if the logged in user id matches the blog's author id
+        // If not, navigate to view blog page
+
+        if (user === false || user._id !== blogInfo.author._id) {
+            console.log("USER IS UNAUTHORIZED");
+            navigate(`/unauthorized`);
+            return;
+        };
+
+    }, [user, blogInfo]);
+
+
+    // Checks if there was an error getting blog info
+
+    if (err) {
+        console.warn("ERROR LOADING BLOG: ", err);
+        return <EditBlogPageError />;
+    }
 
 
     // Check if user and blogInfo exist
-    // If either don't exist, render loading page
+    // If one or the other doesn't exist, render loading page
 
-    if (!user || !blogInfo) return <EditBlogPageLoading />;
+    if (user === undefined || blogInfo === undefined) return <EditBlogPageLoading />;
 
-
+    
     // Destructures blogInfo
 
     const {
 
-        _id,
-
         author,
         createdAt,
-
-        coverImage,
-        title,
-        body,
-
-        comments,
-
         likedBy,
 
     } = blogInfo;
 
 
-    // Checks if the logged in user id matches the blog's author id
-    // If not, navigate to view blog page
-
-    if (user._id !== author._id) {
-        navigate(`/view/blog/${_id}`);
-        return;
-    };
+    // Renders EditBlogPage
 
     return (
         <article className="container">
@@ -215,11 +220,11 @@ const ViewBlogPage = () => {
                     <p className="date">{new Date(createdAt).toDateString()}</p>
                 </div>
 
-                <img className="cover-image" src={coverImage} alt="blog cover image" />
+                <img className="cover-image" src={editState.coverImage} alt="blog cover image" />
 
                 <div className="blog-body">
                     <ReactMarkdown>
-                        {body}
+                        {editState.body}
                     </ReactMarkdown>
                 </div>
 
