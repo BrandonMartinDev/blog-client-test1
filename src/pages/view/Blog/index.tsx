@@ -33,8 +33,13 @@ const ViewBlogPageLoading = () => {
 
 const ViewBlogPage = () => {
 
+    // Gets blog_id from url params
+
     const { blog_id } = useParams();
     if (!blog_id) return <ViewBlogPageError />;
+
+
+    // Gets blogInfo from blog_id
 
     const { blogInfo, err } = useGetBlogInfo(blog_id);
 
@@ -44,6 +49,9 @@ const ViewBlogPage = () => {
     }
 
     if (!blogInfo) return <ViewBlogPageLoading />;
+
+
+    // Destructures blogInfo
 
     const {
 
