@@ -5,11 +5,13 @@ import { Routes, Route } from 'react-router-dom';
 import {
 
   ErrorPage,
-
+  
   HomePage,
   LoginPage,
-
-  ViewBlogPage
+  
+  ViewBlogPage,
+  
+  EditBlogPage,
 
 } from './pages/exportPages';
 
@@ -38,6 +40,12 @@ function App() {
           <Route path='/view'>
 
             <Route path='/view/blog/:blog_id' element={<ViewBlogPage />} />
+
+          </Route>
+
+          <Route path='/edit'>
+
+            <Route path='/edit/blog/:blog_id' element={<EditBlogPage />} />
 
           </Route>
 
