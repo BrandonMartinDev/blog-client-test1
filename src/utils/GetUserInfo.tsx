@@ -7,6 +7,8 @@ const ENDPOINT: string = `${API_URL}/user/`;
 
 export default async function GetUserInfo(user_id: string): Promise<User> {
 
+    console.warn("DEPRECATED, USE 'useGetUserInfo' HOOK");
+
     if (!user_id) throw new Error("'user_id' was not provided!");
 
 
@@ -24,7 +26,7 @@ export default async function GetUserInfo(user_id: string): Promise<User> {
     // Parses server response and returns data
 
     const parsedResponse = await response.json();
-    
+
     if ("error" in parsedResponse) throw new Error(parsedResponse.error);
     if (!parsedResponse || !("data" in parsedResponse)) throw new Error("There was an error getting the data");
 
