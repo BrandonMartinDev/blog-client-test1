@@ -1,0 +1,15 @@
+.save {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: .15s all;
+}
+
+.save>.harddisk {
+    margin-right: 5px;
+}
+
+.save:hover,
+.save:hover>.harddisk {
+    color: rgb(31, 201, 87);
+}
