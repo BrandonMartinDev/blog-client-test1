@@ -1,7 +1,8 @@
 // -- == [[ IMPORTS ]] == -- \\
 
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom"
+import TextareaAutosize from 'react-textarea-autosize';
 import ReactMarkdown from 'react-markdown';
 
 import './editBlog.css';
@@ -92,6 +93,13 @@ const ViewBlogPage = () => {
 
     const navigate = useNavigate();
 
+    // Sets up useRefs
+
+    const titleInputUseRef = useRef<HTMLTextAreaElement>(null);
+    const coverImageInputUseRef = useRef();
+    const bodyInputUseRef = useRef<HTMLTextAreaElement>(null);
+
+
     // Sets up edit state
 
     const EditInitialState: EditState = {
@@ -169,6 +177,23 @@ const ViewBlogPage = () => {
     }, [user, blogInfo]);
 
 
+    // Initializes useEffect that depends on refs
+
+    useEffect(() => {
+
+        if (editState.editingTitle) {
+            titleInputUseRef.current?.focus();
+            return;
+        }
+
+        if (editState.editingBody) {      
+            bodyInputUseRef.current?.focus();
+            return;
+        }
+
+    }, [editState]);
+
+
     // Checks if there was an error getting blog info
 
     if (err) {
@@ -182,7 +207,7 @@ const ViewBlogPage = () => {
 
     if (user === undefined || blogInfo === undefined) return <EditBlogPageLoading />;
 
-    
+
     // Destructures blogInfo
 
     const {
@@ -199,22 +224,40 @@ const ViewBlogPage = () => {
     return (
         <article className="container">
 
-            <main className="view-blog_main">
+            <main className="edit-blog_main">
 
-                <h1 className="title">
-                    <input
-                        type="text"
-                        value={editState.title}
-                        onBlur={() => {
-                            editDispatch({ type: "STOP_EDIT", payload: "" });
-                        }}
-                        onChange={(e) => {
-                            editDispatch({ type: "TITLE", payload: e.target.value });
-                        }}
-                    />
-                </h1>
+                {
+                    editState.editingTitle
+                        ? (
+                            <TextareaAutosize
 
-                <div className="header">
+                                ref={titleInputUseRef}
+
+                                name="title-input"
+                                className="title-input"
+                                id="title-input"
+                                maxLength={100}
+                                minLength={3}
+                                value={editState.title}
+                                onBlur={() => {
+                                    editDispatch({ type: "STOP_EDIT", payload: "" });
+                                }}
+                                onChange={(e) => {
+                                    editDispatch({ type: "TITLE", payload: e.target.value });
+                                }}
+
+                            />
+                        ) : (
+                            <h1
+                                className="title-input"
+                                onClick={() => {
+                                    editDispatch({ type: "TITLE", payload: editState.title });
+                                }}
+                            >{editState.title}</h1>
+                        )
+                }
+
+                <div className="blog-header">
                     <UsernameLink displayName={author.displayName} userId={author._id} />
                     <Likes amountOfLikes={likedBy.length} />
                     <p className="date">{new Date(createdAt).toDateString()}</p>
@@ -222,11 +265,45 @@ const ViewBlogPage = () => {
 
                 <img className="cover-image" src={editState.coverImage} alt="blog cover image" />
 
-                <div className="blog-body">
-                    <ReactMarkdown>
-                        {editState.body}
-                    </ReactMarkdown>
+                <div
+
+                    className="blog-body"
+
+                    onClick={() => {
+                        editDispatch({ type: "BODY", payload: editState.body });
+                    }}
+                >
+
+                    {
+                        editState.editingBody
+                            ? (
+                                <TextareaAutosize
+
+                                    ref={bodyInputUseRef}
+
+                                    name="body-input"
+                                    className="body-input"
+                                    id="body-input"
+                                    maxLength={25000}
+                                    minLength={5}
+                                    value={editState.body}
+                                    onBlur={() => {
+                                        editDispatch({ type: "STOP_EDIT", payload: "" });
+                                    }}
+                                    onChange={(e) => {
+                                        editDispatch({ type: "BODY", payload: e.target.value });
+                                    }}
+
+                                />
+                            ) : (
+                                <ReactMarkdown>
+                                    {editState.body}
+                                </ReactMarkdown>
+                            )
+                    }
+
                 </div>
+
 
             </main>
 

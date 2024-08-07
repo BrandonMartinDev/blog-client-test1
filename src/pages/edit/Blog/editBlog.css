@@ -1,19 +1,52 @@
-/* VIEW BLOG MAIN */
+/* EDIT BLOG MAIN */
 
-.view-blog_main {
+.edit-blog_main {
     padding: 5rem 0;
 }
 
-.view-blog_main>h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1em;
+
+
+/* TEXTAREA */
+
+.edit-blog_main textarea {
+
+    border-radius: 9px;
+    padding: 1rem;
+
+    min-width: 100%;
+    max-width: 100%;
+
+    resize: none;
+    scrollbar-width: none;
+
+    outline: none;
+
+    font-family: var(--ff-lexand);
+    background-color: white;
+    box-shadow: 3px 3px 9px rgba(0, 0, 0, .05);
+
 }
 
 
 
 /* HEADER */
 
-.view-blog_main>.blog-header {
+.edit-blog_main>.title-input {
+
+    margin-bottom: 1em;
+    font-size: 2.5rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: .15s all;
+
+}
+
+.edit-blog_main>.title-input:hover {
+    color: rgb(197, 39, 39);
+}
+
+.edit-blog_main>.blog-header {
     font-weight: 300;
     color: gray;
     display: flex;
@@ -22,15 +55,15 @@
     margin-bottom: 1rem;
 }
 
-.view-blog_main>.blog-header>.username-link {
+.edit-blog_main>.blog-header>.username-link {
     margin-right: auto;
 }
 
-.view-blog_main>.blog-header>.edit {
+.edit-blog_main>.blog-header>.edit {
     margin-right: 1rem;
 }
 
-.view-blog_main>.blog-header>.likes {
+.edit-blog_main>.blog-header>.likes {
     margin-right: 1rem;
 }
 
@@ -38,9 +71,9 @@
 
 /* IMAGE */
 
-.view-blog_main>.cover-image {
+.edit-blog_main>.cover-image {
     width: 100%;
-    height: 30em;
+    max-height: 30rem;
     object-fit: cover;
     margin-bottom: 1rem;
 }
@@ -49,15 +82,54 @@
 
 /* BODY */
 
-.view-blog_main>.blog-body>h2 {
+.edit-blog_main>.blog-body {
+    cursor: pointer;
+    transition: .15s all;
+}
+
+.edit-blog_main>.blog-body:hover {
+    color: rgb(197, 39, 39);
+}
+
+.edit-blog_main>.blog-body h2 {
     font-weight: 700;
     font-size: 2rem;
     margin-top: 2em;
 }
 
-.view-blog_main>.blog-body>p {
+.edit-blog_main>.blog-body p {
     line-height: 2.5rem;
     margin: 2rem 0;
     font-weight: 300;
     font-size: 1.25rem;
+}
+
+.edit-blog_main>.blog-body img {
+    width: 100%;
+    max-height: 30rem;
+    object-fit: cover;
+}
+
+
+
+
+/* BODY INPUT */
+
+.edit-blog_main>.blog-body>.body-input {
+    font-weight: 700;
+    font-size: 2rem;
+    margin-top: 2em;
+}
+
+.edit-blog_main>.blog-body>.body-input {
+
+    font-family: var(--ff-lexand);
+    font-size: 2.5rem;
+    font-weight: 700;
+
+    line-height: 2.5rem;
+    margin: 2rem 0;
+    font-weight: 300;
+    font-size: 1.25rem;
+
 }
