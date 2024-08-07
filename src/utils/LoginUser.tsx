@@ -33,7 +33,7 @@ export default async function LoginUser(username: string, password: string) {
     // Parses server response
 
     const parsedResponse = await response.json();
-    if (!parsedResponse || !("data" in parsedResponse) || !("message" in parsedResponse)) throw new Error("There was an error getting the data");
+    if (!parsedResponse || !("message" in parsedResponse)) throw new Error("There was an error getting the data");
 
     console.log(parsedResponse.message);
 
