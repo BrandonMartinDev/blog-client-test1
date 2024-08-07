@@ -13,7 +13,7 @@
 
 /* HEADER */
 
-.view-blog_main>.header {
+.view-blog_main>.blog-header {
     font-weight: 300;
     color: gray;
     display: flex;
@@ -22,15 +22,15 @@
     margin-bottom: 1rem;
 }
 
-.view-blog_main>.header>.username-link {
+.view-blog_main>.blog-header>.username-link {
     margin-right: auto;
 }
 
-.view-blog_main>.header>.edit {
+.view-blog_main>.blog-header>.edit {
     margin-right: 1rem;
 }
 
-.view-blog_main>.header>.likes {
+.view-blog_main>.blog-header>.likes {
     margin-right: 1rem;
 }
 

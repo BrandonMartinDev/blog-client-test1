@@ -85,7 +85,7 @@ const ViewBlogPage = () => {
 
                 <h1 className="title">{title}</h1>
 
-                <div className="header">
+                <div className="blog-header">
                     <UsernameLink displayName={author.displayName} userId={author._id} />
                     <EditButton blog_id={_id} author_id={author._id} />
                     <Likes amountOfLikes={likedBy.length} />
