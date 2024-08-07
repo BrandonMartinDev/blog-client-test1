@@ -31,7 +31,20 @@
 
 /* HEADER */
 
-.edit-blog_main>.title-input {
+.edit-blog_main>.blog-header {
+    font-weight: 300;
+    color: gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+
+
+/* HEADER TITLE */
+
+.edit-blog_main>.blog-title {
 
     margin-bottom: 1em;
     font-size: 2.5rem;
@@ -42,29 +55,31 @@
 
 }
 
-.edit-blog_main>.title-input:hover {
+.edit-blog_main>.blog-title:hover {
     color: rgb(197, 39, 39);
 }
 
-.edit-blog_main>.blog-header {
-    font-weight: 300;
-    color: gray;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+.edit-blog_main>.title-input {
+    font-size: 2.5rem;
+    font-weight: 700;
 }
+
+
+
+/* HEADER USERNAME LINK */
 
 .edit-blog_main>.blog-header>.username-link {
     margin-right: auto;
 }
 
-.edit-blog_main>.blog-header>.edit {
-    margin-right: 1rem;
-}
 
-.edit-blog_main>.blog-header>.likes {
+
+/* HEADER BUTTONS */
+
+.edit-blog_main>.blog-header>.buttons {
     margin-right: 1rem;
+    column-gap: 1rem;
+    display: flex;
 }
 
 
