@@ -24,11 +24,20 @@ export default function useGetFeaturedBlogs() {
 
             try {
 
-                const response = await fetch(ENDPOINT);
+                const response = await fetch(ENDPOINT, {
+                    method: "GET",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    credentials: "include"
+                });
+                
                 const parsedResponse = await response.json();
                 if (!parsedResponse || !("data" in parsedResponse) || !("message" in parsedResponse)) throw new Error("There was an error getting the data");
 
                 setFeaturedBlogs(parsedResponse.data);
+
+                console.log(parsedResponse.message, parsedResponse.data);
 
             } catch (err) {
                 setErr(err);
