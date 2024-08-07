@@ -1,9 +1,11 @@
 // -- == [[ IMPORTS ]] == -- \\
 
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
 
 import './viewBlog.css';
+
+import { useLoggedInUser } from "@contexts/useLoggedInUser";
 
 import useGetBlogInfo from "@hooks/useGetBlogInfo";
 
@@ -41,10 +43,17 @@ const ViewBlogPageLoading = () => {
 
 const ViewBlogPage = () => {
 
+    const navigate = useNavigate();
+
     // Gets blog_id from url params
 
     const { blog_id } = useParams();
     if (!blog_id) return <ViewBlogPageError />;
+
+
+    // Gets user from useGetLoggedInUser
+
+    const user = useLoggedInUser();
 
 
     // Gets blogInfo from blog_id
@@ -78,6 +87,13 @@ const ViewBlogPage = () => {
 
     } = blogInfo;
 
+
+    // Initialize click handlers
+
+    const handleEditClick = () => {
+        navigate(`/edit/blog/${blog_id}`);
+    }
+
     return (
         <article className="container">
 
@@ -86,10 +102,18 @@ const ViewBlogPage = () => {
                 <h1 className="title">{title}</h1>
 
                 <div className="blog-header">
+
                     <UsernameLink displayName={author.displayName} userId={author._id} />
-                    <EditButton blog_id={_id} author_id={author._id} />
+
+                    {
+                        // Display editbutton only if user exists and if the user's id is the same as the blog's author's id
+                        user && user._id === blogInfo.author._id && <EditButton handleClick={handleEditClick} />
+                    }
+
                     <Likes amountOfLikes={likedBy.length} />
+                    
                     <p className="date">{new Date(createdAt).toDateString()}</p>
+
                 </div>
 
                 <img className="cover-image" src={coverImage} alt="blog cover image" />
