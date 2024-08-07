@@ -11,11 +11,11 @@ import { useLoggedInUser } from "@contexts/useLoggedInUser";
 
 import useGetBlogInfo from "@hooks/useGetBlogInfo";
 
-import { UsernameLink, Likes } from "@global-components/exportGlobalComponents";
+import { UsernameLink, Likes, SaveButton, CancelButton } from "@global-components/exportGlobalComponents";
 
 
 
-// -- == [[ EDIT REDUCER INFO ]] == -- \\
+// -- == [[ EDIT REDUCER TYPES ]] == -- \\
 
 type EditState = {
 
@@ -42,33 +42,6 @@ type EditAction = {
     newState?: EditState;
 }
 
-const EditReducer = (prevState: EditState, action: EditAction): EditState => {
-
-    switch (action.type) {
-
-        case "ALL":
-            if (!action.newState) throw new Error("newState was not provided!");
-            return action.newState;
-        case "TITLE":
-            return { ...prevState, title: action.payload, editingTitle: true };
-        case "COVER_IMAGE":
-            return { ...prevState, coverImage: action.payload, editingCoverImage: true };
-        case "BODY":
-            return { ...prevState, body: action.payload, editingBody: true };
-        case "STOP_EDIT":
-            return {
-                ...prevState,
-                editingTitle: false,
-                editingCoverImage: false,
-                editingBody: false,
-            }
-        default:
-            throw new Error(`${action.type} was not a valid action type!`);
-
-    }
-
-}
-
 
 
 // -- == [[ COMPONENTS ]] == -- \\
@@ -89,12 +62,13 @@ const EditBlogPageLoading = () => {
     )
 }
 
-const ViewBlogPage = () => {
+const EditBlogPage = () => {
 
     const navigate = useNavigate();
 
     // Sets up useRefs
 
+    const blogWasEdited = useRef<boolean>(false);
     const titleInputUseRef = useRef<HTMLTextAreaElement>(null);
     const coverImageInputUseRef = useRef();
     const bodyInputUseRef = useRef<HTMLTextAreaElement>(null);
@@ -114,6 +88,43 @@ const ViewBlogPage = () => {
         editingBody: false
 
     }
+
+
+    // Sets up edit reducer
+
+    const EditReducer = (prevState: EditState, action: EditAction): EditState => {
+
+        switch (action.type) {
+
+            case "ALL":
+
+                if (!action.newState) throw new Error("newState was not provided!");
+                return action.newState;
+
+            case "TITLE":
+                return { ...prevState, title: action.payload, editingTitle: true };
+            case "COVER_IMAGE":
+                return { ...prevState, coverImage: action.payload, editingCoverImage: true };
+            case "BODY":
+                return { ...prevState, body: action.payload, editingBody: true };
+            case "STOP_EDIT":
+
+                blogWasEdited.current = true;
+
+                return {
+                    ...prevState,
+                    editingTitle: false,
+                    editingCoverImage: false,
+                    editingBody: false,
+                }
+
+            default:
+                throw new Error(`${action.type} was not a valid action type!`);
+
+        }
+
+    }
+
 
     // Initialize useReducer
 
@@ -145,6 +156,16 @@ const ViewBlogPage = () => {
         if (user === undefined || blogInfo === undefined) return;
 
 
+        // Checks if the logged in user id matches the blog's author id
+        // If not, navigate to view blog page
+
+        if (user === false || user._id !== blogInfo.author._id) {
+            console.log("USER IS UNAUTHORIZED");
+            navigate(`/unauthorized`);
+            return;
+        };
+
+
         // Sets EditReducer state to blog info
 
         editDispatch({
@@ -164,16 +185,6 @@ const ViewBlogPage = () => {
             }
         });
 
-
-        // Checks if the logged in user id matches the blog's author id
-        // If not, navigate to view blog page
-
-        if (user === false || user._id !== blogInfo.author._id) {
-            console.log("USER IS UNAUTHORIZED");
-            navigate(`/unauthorized`);
-            return;
-        };
-
     }, [user, blogInfo]);
 
 
@@ -186,7 +197,7 @@ const ViewBlogPage = () => {
             return;
         }
 
-        if (editState.editingBody) {      
+        if (editState.editingBody) {
             bodyInputUseRef.current?.focus();
             return;
         }
@@ -219,6 +230,28 @@ const ViewBlogPage = () => {
     } = blogInfo;
 
 
+    // Initialize click handlers
+
+    const handleCancelEditClick = async () => {
+        navigate(`/view/blog/${blog_id}`);
+    }
+
+    const handleSaveEditClick = async () => {
+
+        // Todo, save functionality
+
+        if (blogWasEdited.current !== true) return;
+
+        console.log(editState.title);
+        console.log(editState.body);
+
+        console.log('AWAITS SAVING EDITED DATA INTO DB');
+
+        navigate(`/view/blog/${blog_id}`);
+
+    }
+
+
     // Renders EditBlogPage
 
     return (
@@ -249,7 +282,7 @@ const ViewBlogPage = () => {
                             />
                         ) : (
                             <h1
-                                className="title-input"
+                                className="blog-title"
                                 onClick={() => {
                                     editDispatch({ type: "TITLE", payload: editState.title });
                                 }}
@@ -258,9 +291,22 @@ const ViewBlogPage = () => {
                 }
 
                 <div className="blog-header">
+
                     <UsernameLink displayName={author.displayName} userId={author._id} />
-                    <Likes amountOfLikes={likedBy.length} />
+
+                    <div className="buttons">
+
+                        {
+                            // Only show save button if blog was edited
+                            blogWasEdited.current && <SaveButton handleClick={handleSaveEditClick} />
+                        }
+
+                        <CancelButton handleClick={handleCancelEditClick} />
+                        <Likes amountOfLikes={likedBy.length} />
+                    </div>
+
                     <p className="date">{new Date(createdAt).toDateString()}</p>
+
                 </div>
 
                 <img className="cover-image" src={editState.coverImage} alt="blog cover image" />
@@ -311,4 +357,4 @@ const ViewBlogPage = () => {
     )
 }
 
-export default ViewBlogPage
+export default EditBlogPage
