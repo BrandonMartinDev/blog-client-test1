@@ -1,6 +1,6 @@
 // -- == [[ IMPORTS ]] == -- \\
 
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"
 import ReactMarkdown from 'react-markdown';
 
@@ -72,7 +72,7 @@ const EditBlogPage = () => {
 
     // Sets up useRefs
 
-    const showSaveButton = useRef<boolean>(false);
+    const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
     const titleInputRef = useRef<HTMLTextAreaElement>(null);
     const coverImageInputRef = useRef();
     const bodyInputRef = useRef<HTMLTextAreaElement>(null);
@@ -113,7 +113,7 @@ const EditBlogPage = () => {
                 return { ...prevState, body: action.payload, editingBody: true };
             case "STOP_EDIT":
 
-                showSaveButton.current = true;
+                setShowSaveButton(true);
 
                 return {
                     ...prevState,
@@ -242,10 +242,10 @@ const EditBlogPage = () => {
 
     const handleSaveEditClick = async () => {
 
-        if (showSaveButton.current !== true) return;
+        if (showSaveButton !== true) return;
         if (!editState.title || !editState.coverImage || !editState.body) return;
 
-        showSaveButton.current = false;
+        setShowSaveButton(false);
 
         await SaveBlogEdit(blog_id, editState.title, editState.coverImage, editState.body);
 
@@ -282,7 +282,7 @@ const EditBlogPage = () => {
 
                         {
                             // Only show save button if blog was edited
-                            showSaveButton.current && <SaveButton handleClick={handleSaveEditClick} />
+                            showSaveButton && <SaveButton handleClick={handleSaveEditClick} />
                         }
 
                         <CancelButton handleClick={handleCancelEditClick} />
