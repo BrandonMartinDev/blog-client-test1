@@ -2,7 +2,6 @@
 
 import { useEffect, useReducer, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom"
-import TextareaAutosize from 'react-textarea-autosize';
 import ReactMarkdown from 'react-markdown';
 
 import './editBlog.css';
@@ -13,11 +12,16 @@ import useGetBlogInfo from "@hooks/useGetBlogInfo";
 
 import { UsernameLink, Likes, SaveButton, CancelButton } from "@global-components/exportGlobalComponents";
 
+import SaveBlogEdit from "@utils/SaveBlogEdit";
+
+import TitleInput from "./components/TitleInput";
+import BodyInput from "./components/BodyInput";
+
 
 
 // -- == [[ EDIT REDUCER TYPES ]] == -- \\
 
-type EditState = {
+export type EditState = {
 
     title: string;
     editingTitle: boolean;
@@ -30,13 +34,13 @@ type EditState = {
 
 }
 
-type EDIT_ACTION_TYPE = "ALL"
+export type EDIT_ACTION_TYPE = "ALL"
     | "TITLE"
     | "COVER_IMAGE"
     | "BODY"
     | "STOP_EDIT";
 
-type EditAction = {
+export type EditAction = {
     type: EDIT_ACTION_TYPE;
     payload: string;
     newState?: EditState;
@@ -68,10 +72,10 @@ const EditBlogPage = () => {
 
     // Sets up useRefs
 
-    const blogWasEdited = useRef<boolean>(false);
-    const titleInputUseRef = useRef<HTMLTextAreaElement>(null);
-    const coverImageInputUseRef = useRef();
-    const bodyInputUseRef = useRef<HTMLTextAreaElement>(null);
+    const showSaveButton = useRef<boolean>(false);
+    const titleInputRef = useRef<HTMLTextAreaElement>(null);
+    const coverImageInputRef = useRef();
+    const bodyInputRef = useRef<HTMLTextAreaElement>(null);
 
 
     // Sets up edit state
@@ -109,7 +113,7 @@ const EditBlogPage = () => {
                 return { ...prevState, body: action.payload, editingBody: true };
             case "STOP_EDIT":
 
-                blogWasEdited.current = true;
+                showSaveButton.current = true;
 
                 return {
                     ...prevState,
@@ -193,12 +197,12 @@ const EditBlogPage = () => {
     useEffect(() => {
 
         if (editState.editingTitle) {
-            titleInputUseRef.current?.focus();
+            titleInputRef.current?.focus();
             return;
         }
 
         if (editState.editingBody) {
-            bodyInputUseRef.current?.focus();
+            bodyInputRef.current?.focus();
             return;
         }
 
@@ -238,14 +242,12 @@ const EditBlogPage = () => {
 
     const handleSaveEditClick = async () => {
 
-        // Todo, save functionality
+        if (showSaveButton.current !== true) return;
+        if (!editState.title || !editState.coverImage || !editState.body) return;
 
-        if (blogWasEdited.current !== true) return;
+        showSaveButton.current = false;
 
-        console.log(editState.title);
-        console.log(editState.body);
-
-        console.log('AWAITS SAVING EDITED DATA INTO DB');
+        await SaveBlogEdit(blog_id, editState.title, editState.coverImage, editState.body);
 
         navigate(`/view/blog/${blog_id}`);
 
@@ -261,26 +263,8 @@ const EditBlogPage = () => {
 
                 {
                     editState.editingTitle
-                        ? (
-                            <TextareaAutosize
-
-                                ref={titleInputUseRef}
-
-                                name="title-input"
-                                className="title-input"
-                                id="title-input"
-                                maxLength={100}
-                                minLength={3}
-                                value={editState.title}
-                                onBlur={() => {
-                                    editDispatch({ type: "STOP_EDIT", payload: "" });
-                                }}
-                                onChange={(e) => {
-                                    editDispatch({ type: "TITLE", payload: e.target.value });
-                                }}
-
-                            />
-                        ) : (
+                        ? <TitleInput inputRef={titleInputRef} title={editState.title} editDispatch={editDispatch} />
+                        : (
                             <h1
                                 className="blog-title"
                                 onClick={() => {
@@ -298,7 +282,7 @@ const EditBlogPage = () => {
 
                         {
                             // Only show save button if blog was edited
-                            blogWasEdited.current && <SaveButton handleClick={handleSaveEditClick} />
+                            showSaveButton.current && <SaveButton handleClick={handleSaveEditClick} />
                         }
 
                         <CancelButton handleClick={handleCancelEditClick} />
@@ -323,24 +307,7 @@ const EditBlogPage = () => {
                     {
                         editState.editingBody
                             ? (
-                                <TextareaAutosize
-
-                                    ref={bodyInputUseRef}
-
-                                    name="body-input"
-                                    className="body-input"
-                                    id="body-input"
-                                    maxLength={25000}
-                                    minLength={5}
-                                    value={editState.body}
-                                    onBlur={() => {
-                                        editDispatch({ type: "STOP_EDIT", payload: "" });
-                                    }}
-                                    onChange={(e) => {
-                                        editDispatch({ type: "BODY", payload: e.target.value });
-                                    }}
-
-                                />
+                                <BodyInput inputRef={bodyInputRef} body={editState.body} editDispatch={editDispatch} />
                             ) : (
                                 <ReactMarkdown>
                                     {editState.body}
