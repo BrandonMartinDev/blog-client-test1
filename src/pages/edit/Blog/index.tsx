@@ -15,6 +15,7 @@ import { UsernameLink, Likes, SaveButton, CancelButton } from "@global-component
 import SaveBlogEdit from "@utils/SaveBlogEdit";
 
 import TitleInput from "./components/TitleInput";
+import CoverImageInput from "./components/CoverImageInput";
 import BodyInput from "./components/BodyInput";
 
 
@@ -74,7 +75,7 @@ const EditBlogPage = () => {
 
     const [showSaveButton, setShowSaveButton] = useState<boolean>(false);
     const titleInputRef = useRef<HTMLTextAreaElement>(null);
-    const coverImageInputRef = useRef();
+    const coverImageInputRef = useRef<HTMLTextAreaElement>(null);
     const bodyInputRef = useRef<HTMLTextAreaElement>(null);
 
 
@@ -201,6 +202,11 @@ const EditBlogPage = () => {
             return;
         }
 
+        if (editState.editingCoverImage) {
+            coverImageInputRef.current?.select();
+            return;
+        }
+
         if (editState.editingBody) {
             bodyInputRef.current?.focus();
             return;
@@ -293,7 +299,30 @@ const EditBlogPage = () => {
 
                 </div>
 
-                <img className="cover-image" src={editState.coverImage} alt="blog cover image" />
+                <div className="cover-image-holder">
+                    {
+                        editState.editingCoverImage
+                            ? (
+                                <>
+                                    <CoverImageInput inputRef={coverImageInputRef} coverImage={editState.coverImage} editDispatch={editDispatch} />
+                                    <img className="cover-image-input-img" src={editState.coverImage} alt="blog cover image" />
+                                </>
+                            )
+                            : (
+                                <img
+
+                                    className="cover-image-img"
+                                    src={editState.coverImage}
+                                    alt="blog cover image"
+
+                                    onClick={() => {
+                                        editDispatch({ type: "COVER_IMAGE", payload: editState.coverImage });
+                                    }}
+
+                                />
+                            )
+                    }
+                </div>
 
                 <div
 
