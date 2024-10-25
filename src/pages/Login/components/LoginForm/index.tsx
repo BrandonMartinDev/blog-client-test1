@@ -99,6 +99,43 @@ const LoginForm = () => {
 
     }
 
+    async function LoginDemoUser() {
+
+        try {
+
+            // Logs in user
+
+            // Absolutely HORRIBLE storing credentials in plaintext, I know
+            await LoginUser("Demo_User", "Passw0rd!"); 
+
+
+            // Gets the current logged in user
+
+            const userInfo = await GetUserInfo("current");
+            if (!userInfo) throw new Error("There was an error logging in");
+
+
+            // If userInfo exists, sets logged in user
+
+            if (!setUser) throw new Error("There was an error getting setUser");
+            setUser(userInfo);
+
+            navigate('/');
+
+        } catch (err) {
+
+            if (err instanceof Error) {
+                console.warn(err.message);
+                setError(err.message);
+            } else {
+                console.warn(err);
+                setError(err as string);
+            }
+
+        }
+
+    }
+
     return (
         <div className="login-form-container">
 
@@ -161,8 +198,10 @@ const LoginForm = () => {
 
                     </fieldset>
 
+                    {/*There is no email system, so the forgot-password button is just for show*/}
+
                     <div className="forgot-password">
-                        <Link to="/login/forgot-password" className='subtitle'>Forgot Password?</Link>
+                        <Link to="" className='subtitle'>Forgot Password?</Link>
                     </div>
 
                     <button type="submit" disabled={!validUser || !validPassword}>Login</button>
@@ -171,7 +210,10 @@ const LoginForm = () => {
             )}
 
             <p className='subtitle text-center signup'>Don't have an account? <Link to='/sign-up'>Sign up</Link></p>
-            <p className='subtitle text-center demo'>Want to a demo? <Link to=''>Try Demo</Link></p>
+
+            <p className='subtitle text-center demo'>
+                Want to a demo? <Link to='' onClick={LoginDemoUser}>Try Demo</Link>
+            </p>
 
         </div>
     )
