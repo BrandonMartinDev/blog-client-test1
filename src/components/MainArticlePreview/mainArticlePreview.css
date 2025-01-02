@@ -87,4 +87,5 @@
 
 .main-article-preview.loading img {
     background-color: lightgray;
+    border: 1px solid lightgray;
 }

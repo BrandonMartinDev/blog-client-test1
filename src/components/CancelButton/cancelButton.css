@@ -1,0 +1,15 @@
+.cancel {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: .15s all;
+}
+
+.cancel>.nosign {
+    margin-right: 5px;
+}
+
+.cancel:hover,
+.cancel:hover>.nosign {
+    color: rgb(196, 39, 39);
+}

@@ -2,13 +2,15 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    transition: .15s all;
 }
 
 .likes>.heart {
-    transition: .15s all;
     margin-right: 5px;
 }
 
-.likes:hover>.heart {
+.likes:hover,
+.likes:hover>.heart,
+.likes.liked {
     color: rgb(196, 39, 39);
 }

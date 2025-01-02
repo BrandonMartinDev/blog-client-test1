@@ -8,28 +8,18 @@ import { Article } from '@custom-types/blog-types';
 
 import {
     MainArticlePreview,
-    ArticlePreview
+    ArticlePreview,
+    LargeError
 } from "@global-components/exportGlobalComponents.ts";
 
 
 
 // -- == [[ COMPONENTS ]] == -- \\
 
-const HomePageError = () => {
-    return (
-        <div className="container">
-            <main className="home-main">
-                <p>Home</p>
-                <h1>There was an error loading featured blogs...</h1>
-            </main>
-        </div>
-    )
-}
-
 const HomePageLoading = () => {
 
     return (
-        <div className="container">
+        <div className="home container">
             <main className="home-main">
                 <MainArticlePreview isLoading={true} />
             </main>
@@ -51,7 +41,15 @@ const HomePage = () => {
 
     // Checks if there was an error, and if featuredBlogs' length is greater than 1
 
-    if (err || (featuredBlogs && !featuredBlogs.length)) return <HomePageError />;
+    if (err || (featuredBlogs && !featuredBlogs.length)) return (
+
+        <LargeError
+            mainText="There was an error loading featured blogs..."
+            subText="We're sorry about that! Please try again later."
+        />
+
+    );
+
     if (!featuredBlogs) return <HomePageLoading />;
 
     const mainFeaturedBlog = featuredBlogs[0];

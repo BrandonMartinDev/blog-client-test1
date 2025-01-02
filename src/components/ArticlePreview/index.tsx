@@ -83,7 +83,7 @@ const ArticlePreview = ({
                     </div>
 
                     <div className="right">
-                        {likedBy.length >= 0 && <Likes amountOfLikes={likedBy.length} />}
+                        {likedBy.length >= 0 && <Likes likedBy={likedBy} blog_id={_id} />}
                     </div>
 
                 </div>

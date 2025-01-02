@@ -5,11 +5,14 @@ import { Routes, Route } from 'react-router-dom';
 import {
 
   ErrorPage,
+  UnauthorizedPage,
 
   HomePage,
   LoginPage,
 
-  ViewBlogPage
+  ViewBlogPage,
+
+  EditBlogPage,
 
 } from './pages/exportPages';
 
@@ -41,12 +44,19 @@ function App() {
 
           </Route>
 
+          <Route path='/edit'>
+
+            <Route path='/edit/blog/:blog_id' element={<EditBlogPage />} />
+
+          </Route>
+
+          <Route path='/unauthorized' element={<UnauthorizedPage />} />
           <Route path='*' element={<ErrorPage />} />
 
         </Route>
 
       </Routes>
-      
+
     </LoggedInUserContextProvider>
   )
 }

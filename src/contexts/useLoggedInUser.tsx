@@ -3,15 +3,15 @@
 import { type User } from "@custom-types/user-types";
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
 
-import GetUserInfo from "@utils/GetUserInfo";
+import useGetUserInfo from "@hooks/useGetUserInfo";
 
 
 
 // -- == [[ CONTEXT TYPES ]] == -- \\
 
 type LoggedInUserContextValue = {
-    user: User | undefined,
-    setUser: React.Dispatch<React.SetStateAction<User | undefined>>
+    user: User | false | undefined,
+    setUser: React.Dispatch<React.SetStateAction<User | false | undefined>>
 }
 
 
@@ -29,15 +29,15 @@ export const useLoggedInUserContext = () => {
 }
 
 export const useLoggedInUser = () => {
-    const contextReturn = useContext(LoggedInUserContext);
-    if (!contextReturn) return;
-    return contextReturn.user;
+    const contextValue = useContext(LoggedInUserContext);
+    if (!contextValue) return;
+    return contextValue.user;
 }
 
 export const useSetLoggedInUser = () => {
-    const contextReturn = useContext(LoggedInUserContext);
-    if (!contextReturn) return;
-    return contextReturn.setUser;
+    const contextValue = useContext(LoggedInUserContext);
+    if (!contextValue) return;
+    return contextValue.setUser;
 }
 
 
@@ -48,39 +48,72 @@ export function LoggedInUserContextProvider({ children }: PropsWithChildren) {
 
     // Sets user state
 
-    const [user, setUser] = useState<User>();
+    const [user, setUser] = useState<User | false | undefined>(undefined);
+
+    const { userInfo, err } = useGetUserInfo("current");
 
     useEffect(() => {
 
-        (async () => {
+        if (err) {
+            setUser(undefined);
+            throw new Error("There was an error getting the current user");
+        }
 
-            try {
-
-                // Gets the current logged in user
-
-                const userInfo = await GetUserInfo("current");
-                if (!userInfo) throw new Error("There was an error logging in");
+        if (!userInfo) {
+            setUser(false);
+            return;
+        }
 
 
-                // If userInfo exists, sets logged in user
+        // If userInfo exists, sets logged in user
 
-                if (!setUser) throw new Error("There was an error getting setUser");
-                setUser(userInfo);
+        setUser(userInfo);
 
-            } catch (error) {
+    }, [userInfo]);
 
-                if (error instanceof Error) {
-                    console.warn(error.message);
-                    return;
-                }
+    // useEffect(() => {
 
-                console.warn(error);
+    //     (async () => {
 
-            }
+    //         if (!setUser) throw new Error("There was an error getting setUser");
 
-        })();
+    //         try {
 
-    }, [])
+    //             // Gets the current logged in user
+
+    //             // const userInfo = await GetUserInfo("current");
+    //             const { userInfo, err } = useGetUserInfo("current");
+
+    //             if (err) {
+    //                 setUser(undefined);
+    //                 throw new Error("There was an error getting the current user");
+    //             }
+
+    //             if (!userInfo) {
+    //                 setUser(false);
+    //             }
+
+
+    //             // If userInfo exists, sets logged in user
+
+    //             setUser(userInfo);
+
+    //         } catch (error) {
+
+    //             setUser(false);
+
+    //             if (error instanceof Error) {
+    //                 console.warn(error.message);
+    //                 return;
+    //             }
+
+    //             console.warn(error);
+
+    //         }
+
+    //     })();
+
+    // }, [])
 
     return (
         <LoggedInUserContext.Provider value={{ user, setUser }}>

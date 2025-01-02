@@ -14,13 +14,16 @@ import { Likes, UsernameLink } from "@global-components/exportGlobalComponents";
 const MainArticlePreviewLoading = () => {
     return (
         <div className="main-article-preview loading">
-            <img alt="" />
+
+            <img />
+
             <div className="info">
                 <div className="main-info">
                     <h2 className='title'>Loading blog info...</h2>
                     <p className="body-preview">Please be patient... :)</p>
                 </div>
             </div>
+
         </div>
     )
 }
@@ -81,7 +84,7 @@ const MainArticlePreview = ({
                     <UsernameLink displayName={author.displayName} userId={author._id} />
                     <p className="date-created">{new Date(createdAt).toDateString()}</p>
 
-                    {likedBy.length >= 0 && <Likes amountOfLikes={likedBy.length} />}
+                    {likedBy.length >= 0 && <Likes likedBy={likedBy} blog_id={_id} />}
 
                 </div>
 
