@@ -10,7 +10,7 @@ const ErrorPage = () => {
     return (
         <main className="error-page container">
 
-            <FiAlertTriangle className="error-page-img" />
+            <FiAlertTriangle className="big-gray-img" />
 
             <div className="main-text">
                 <h1>404</h1>

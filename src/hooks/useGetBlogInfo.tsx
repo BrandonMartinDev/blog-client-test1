@@ -33,13 +33,14 @@ export default function useGetBlogInfo(blog_id: string) {
                     },
                     credentials: "include"
                 });
-                
+
                 const parsedResponse = await response.json();
                 if (!parsedResponse || !("data" in parsedResponse) || !("message" in parsedResponse)) throw new Error("There was an error getting the data");
 
                 setBlogInfo(parsedResponse.data);
 
-                console.log(parsedResponse.message, parsedResponse.data);
+                // console.log(parsedResponse.message, parsedResponse.data);
+                console.log(`Successfully retrived blog '${blog_id}' info`)
 
             } catch (err) {
                 setErr(err);

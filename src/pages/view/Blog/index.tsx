@@ -72,7 +72,7 @@ const ViewBlogPage = () => {
 
     const {
 
-        _id,
+        // _id,
 
         author,
         createdAt,
@@ -81,7 +81,7 @@ const ViewBlogPage = () => {
         title,
         body,
 
-        comments,
+        // comments,
 
         likedBy,
 
@@ -110,8 +110,8 @@ const ViewBlogPage = () => {
                         user && user._id === blogInfo.author._id && <EditButton handleClick={handleEditClick} />
                     }
 
-                    <Likes amountOfLikes={likedBy.length} />
-                    
+                    <Likes blog_id={blog_id} likedBy={likedBy} />
+
                     <p className="date">{new Date(createdAt).toDateString()}</p>
 
                 </div>

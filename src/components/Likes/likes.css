@@ -10,6 +10,7 @@
 }
 
 .likes:hover,
-.likes:hover>.heart {
+.likes:hover>.heart,
+.likes.liked {
     color: rgb(196, 39, 39);
 }

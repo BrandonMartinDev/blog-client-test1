@@ -6,12 +6,12 @@ import {
 
   ErrorPage,
   UnauthorizedPage,
-  
+
   HomePage,
   LoginPage,
-  
+
   ViewBlogPage,
-  
+
   EditBlogPage,
 
 } from './pages/exportPages';
@@ -56,7 +56,7 @@ function App() {
         </Route>
 
       </Routes>
-      
+
     </LoggedInUserContextProvider>
   )
 }
