@@ -3,12 +3,6 @@
     text-align: center;
 }
 
-.error-page-img {
-    color: rgb(161, 161, 161);
-    height: 18em;
-    width: 18em;
-}
-
 
 
 /* MAIN TEXT */
@@ -17,12 +11,12 @@
     margin-bottom: 2rem;
 }
 
-.error-page h1 {
+.error-page>.main-text h1 {
     font-size: 5rem;
     color: rgb(161, 161, 161);
 }
 
-.error-page h2 {
+.error-page>.main-text h2 {
     font-size: 2rem;
 }
 
