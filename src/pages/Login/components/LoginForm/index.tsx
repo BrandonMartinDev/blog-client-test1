@@ -103,10 +103,13 @@ const LoginForm = () => {
 
         try {
 
-            // Logs in user
+            setLoggingIn(true);
+
+            setUsername("");
+            setPassword("");
 
             // Absolutely HORRIBLE storing credentials in plaintext, I know
-            await LoginUser("Demo_User", "Passw0rd!"); 
+            await LoginUser("Demo_User", "Passw0rd!");
 
 
             // Gets the current logged in user
@@ -209,11 +212,15 @@ const LoginForm = () => {
                 </form>
             )}
 
-            <p className='subtitle text-center signup'>Don't have an account? <Link to='/sign-up'>Sign up</Link></p>
+            {!loggingIn && (
+                <>
+                    <p className='subtitle text-center signup'>Don't have an account? <Link to='/sign-up'>Sign up</Link></p>
 
-            <p className='subtitle text-center demo'>
-                Want to a demo? <Link to='' onClick={LoginDemoUser}>Try Demo</Link>
-            </p>
+                    <p className='subtitle text-center demo'>
+                        Want to try a demo? <Link to='' onClick={LoginDemoUser}>Try Demo</Link>
+                    </p>
+                </>
+            )}
 
         </div>
     )
