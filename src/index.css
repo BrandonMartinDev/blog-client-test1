@@ -68,3 +68,9 @@ button {
     font-weight: 300;
     font-size: .75rem;
 }
+
+.big-gray-img {
+    color: rgb(161, 161, 161);
+    height: 18em;
+    width: 18em;
+}
